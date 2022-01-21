@@ -45,7 +45,7 @@ gulp.task('copy-html', function () {
     .pipe(gulp.dest('dist/html/'+build_number))
 });
 
-  gulp.task('replace-body', function() {   
+  gulp.task('generate-body', function() {   
     return gulp.src(['src/template-body.html'])
       .pipe(replace("<!--header-js-->", function(s) {
         var _file = fs.readFileSync('dist/js/header/main.js', 'utf8');
@@ -67,7 +67,7 @@ gulp.task('copy-html', function () {
       .pipe(gulp.dest('dist/html/'))
   });
 
-  gulp.task('replace', function() {   
+  gulp.task('generate-final', function() {   
     return gulp.src(['src/template.html'])
       .pipe(replace("<!--body-->", function(s) {
         var _file = fs.readFileSync('dist/html/template-body.html', 'utf8');
@@ -87,4 +87,4 @@ gulp.task('minify', function () {
 });
 
 gulp.task('build-css', gulp.series('minify'))
-gulp.task('build', gulp.series('clean', 'build-css', 'transpile-header', 'transpile-footer', 'copy-html', 'replace-body', 'replace')) 
+gulp.task('build', gulp.series('clean', 'build-css', 'transpile-header', 'transpile-footer', 'generate-body', 'generate-final')) 
