@@ -1,6 +1,6 @@
 # Front-end Coder
 
-Front-end coder is a front-end development tool. It helps you doing the following:
+Front-end coder is a front-end development tool. It helps you by doing the following:
 * You write html, css and JS in different files, the tool builds a final html file with all files in one
 * You can set additional imports by declaring them in a specific file
 * The tool automatically transpiles typescript to pure javascript
