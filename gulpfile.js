@@ -1,5 +1,3 @@
-const build_number = 'frontend-coder';
-
 const gulp = require('gulp');
 const clean = require('gulp-clean');
 const minify = require('gulp-minify');
@@ -38,11 +36,6 @@ gulp.task('transpile-footer', function () {
 gulp.task('clean', function () {
     return gulp.src('dist/*', {read: false})
         .pipe(clean());
-});
-
-gulp.task('copy-html', function () {
-    return  gulp.src('dist/'+build_number+'/**/*')
-    .pipe(gulp.dest('dist/html/'+build_number))
 });
 
   gulp.task('generate-body', function() {   
