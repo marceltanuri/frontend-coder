@@ -1,0 +1,6 @@
+#!/bin/bash
+_cmd=$1
+echo "initializing fecoder workspace..."
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cp -r $SCRIPT_DIR/_fecoder/* $PWD
+echo "finished!"

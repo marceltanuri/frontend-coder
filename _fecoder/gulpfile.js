@@ -6,6 +6,8 @@ const cssnano = require('gulp-cssnano');
 const concatCss = require('gulp-concat-css');
 const ts = require('gulp-typescript');
 const fs = require('fs');
+const open = require('gulp-open');
+
 
 gulp.task('compress', function () {
   return gulp.src(['src/*.js'])
@@ -75,6 +77,15 @@ gulp.task('minify', function () {
     .pipe(concatCss("everything.css"))
     .pipe(cssnano("everything.css"))
     .pipe(gulp.dest('dist/css'));
+});
+
+gulp.task('preview', async function(){
+  var options = {
+      uri: __dirname+'/dist/html/template.html',
+      app: 'chrome'
+  };
+  gulp.src(__filename)
+  .pipe(open(options));
 });
 
 gulp.task('build-css', gulp.series('minify'))
