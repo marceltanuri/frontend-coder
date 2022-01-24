@@ -29,3 +29,7 @@ Front-end coder is a front-end development tool which helps you by doing the fol
 7. Build the final HTML content with the command `gulp build`. Or use `gulp watch` to automatically build whenever files in the `src` dir were edited
 8. Find the generated file in `dist/template.html` or `dist/template-body.html` deppending whether you want a full HTML file or just the HTML body.
 9. You can use the command `gulp preview` to automatically preview the generated HTML in your browser
+
+### Copying content body
+If you want to copy only the generate content body (without `<html>` and `<head>` tags) you can run the command `gulp clip`. 
+Obs: This command requires python
