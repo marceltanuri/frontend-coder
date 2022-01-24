@@ -7,6 +7,8 @@ const concatCss = require('gulp-concat-css');
 const ts = require('gulp-typescript');
 const fs = require('fs');
 const open = require('gulp-open');
+const run = require('gulp-run');
+
 
 
 gulp.task('compress', function () {
@@ -49,12 +51,9 @@ gulp.task('generate-body', function () {
     })).pipe(replace("<!--style-->", function (s) {
       var _file = fs.readFileSync('dist/css/everything.css', 'utf8');
       return '<style>\n' + _file + '\n</style>';
-    })).pipe(replace("<!--content-->", function (s) {
-      var _file = fs.readFileSync('src/content.html', 'utf8');
-      return _file;
     }))
-    .pipe(replace("<!--imports-->", function (s) {
-      var _file = fs.readFileSync('src/imports.html', 'utf8');
+    .pipe(replace("<!--content-->", function (s) {
+      var _file = fs.readFileSync('src/content.html', 'utf8');
       return _file;
     }))
     .pipe(gulp.dest('dist/html/'))
@@ -65,7 +64,12 @@ gulp.task('generate-final', function () {
     .pipe(replace("<!--body-->", function (s) {
       var _file = fs.readFileSync('dist/html/template-body.html', 'utf8');
       return '<body>\n' + _file + '\n</body>';
-    })).pipe(gulp.dest('dist/html/'))
+    }))
+    .pipe(replace("<!--imports-->", function (s) {
+      var _file = fs.readFileSync('src/imports.html', 'utf8');
+      return _file;
+    }))
+    .pipe(gulp.dest('dist/html/'))
 });
 
 gulp.task('watch', function () {
@@ -88,5 +92,10 @@ gulp.task('preview', async function(){
   .pipe(open(options));
 });
 
+gulp.task('clipboard', function() {
+  return run('py util/copyToClipboard.py').exec();
+})
+
 gulp.task('build-css', gulp.series('minify'))
 gulp.task('build', gulp.series('clean', 'build-css', 'transpile-header', 'transpile-footer', 'generate-body', 'generate-final')) 
+gulp.task('clip', gulp.series('build', 'clipboard'))
